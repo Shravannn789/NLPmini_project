@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake News Detection</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Fake News Detection</h1>
+    <p class="tagline">NLP text classifier &mdash; TF&#8209;IDF features + linear model trained on the ISOT Fake News dataset
+      (24,353 news articles)</p>
+    <nav>
+      <a href="/metrics">Article model metrics &rarr;</a>
+      <span class="muted">&nbsp;|&nbsp;</span>
+      <a href="/metrics/liar">LIAR claim model metrics &rarr;</a>
+    </nav>
+  </header>
+
+  <section class="card">
+    <form method="post" id="analyse-form">
+      <label>Model</label>
+      <div class="model-pick">
+        <label class="radio">
+          <input type="radio" name="model" value="article"
+                 {{ 'checked' if model != 'statement' }}>
+          <span>Full article <em>(ISOT, 24k articles)</em></span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="model" value="statement"
+                 {{ 'checked' if model == 'statement' }}>
+          <span>Short claim <em>(LIAR, fact-check statements)</em></span>
+        </label>
+      </div>
+
+      <label for="url">Article link <span class="muted">(optional &mdash; we fetch and extract the text)</span></label>
+      <input type="url" id="url" name="url" placeholder="https://www.bbc.com/news/..." value="{{ url }}">
+
+      <label for="title">Headline <span class="muted">(optional)</span></label>
+      <input type="text" id="title" name="title" placeholder="e.g. Scientists confirm the earth is flat" value="{{ title }}">
+
+      <label for="text">Article text</label>
+      <textarea id="text" name="text" rows="10" placeholder="Paste the news article here...">{{ text }}</textarea>
+
+      {% if examples %}
+      <div class="examples">
+        <span class="muted">Try an example:</span>
+        {% for ex in examples %}
+        <button type="button" class="chip {{ 'chip-fake' if ex.label == 'FAKE' else 'chip-real' }}"
+                data-title="{{ ex.title | e }}" data-text="{{ ex.text | e }}">
+          {{ ex.label }} &middot; {{ ex.title[:42] }}{% if ex.title|length > 42 %}...{% endif %}
+        </button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <button type="submit" class="primary">Analyse article</button>
+    </form>
+  </section>
+
+  {% if error %}
+  <section class="card error">{{ error }}</section>
+  {% endif %}
+
+  {% if result %}
+  <section class="card result {{ 'fake' if result.is_fake else 'real' }}">
+    <div class="verdict">
+      <span class="badge">{{ 'LIKELY FAKE' if result.is_fake else 'LIKELY REAL' }}</span>
+      <span class="confidence">{{ (result.confidence * 100) | round(1) }}% confidence</span>
+    </div>
+    <p class="muted small">Model: {{ result.model_label }}</p>
+    <div class="bar"><div class="bar-fill {{ 'fake' if result.is_fake else 'real' }}"
+         style="width: {{ (result.confidence * 100) | round }}%"></div></div>
+    <p class="probs">P(FAKE) = {{ (result.probabilities.FAKE * 100) | round(1) }}%
+       &nbsp;|&nbsp; P(REAL) = {{ (result.probabilities.REAL * 100) | round(1) }}%</p>
+
+    <div class="evidence">
+      <div>
+        <h3>Words pushing toward FAKE</h3>
+        {% for t in result.fake_leaning_terms %}
+        <span class="term fake-term" title="weight {{ t.weight }}">{{ t.term }}</span>
+        {% else %}<span class="muted">none</span>{% endfor %}
+      </div>
+      <div>
+        <h3>Words pushing toward REAL</h3>
+        {% for t in result.real_leaning_terms %}
+        <span class="term real-term" title="weight {{ t.weight }}">{{ t.term }}</span>
+        {% else %}<span class="muted">none</span>{% endfor %}
+      </div>
+    </div>
+    <p class="muted small">The words shown are the TF&#8209;IDF features whose linear weights contributed most to this decision.
+      This is a stylistic heuristic &mdash; not a fact check. Always verify with trusted sources.</p>
+  </section>
+  {% endif %}
+
+  <footer class="muted small">Built with Flask + scikit&#8209;learn. Dataset: ISOT Fake News (Reuters-labelled).
+    A model can be confidently wrong on out-of-domain text &mdash; treat output as a signal, not a verdict.</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('url').value = '';
+      document.getElementById('title').value = btn.dataset.title;
+      document.getElementById('text').value = btn.dataset.text;
+    });
+  });
+</script>
+</body>
+</html>

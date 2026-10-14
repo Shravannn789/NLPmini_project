@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model Metrics - Fake News Detection</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Model Evaluation</h1>
+    <p class="tagline">Held-out test set (20% of {{ m.dataset.n_articles if m else '?' }} articles, stratified, seed {{ m.dataset.seed if m else '?' }})</p>
+    <nav><a href="/">&larr; Back to the classifier</a></nav>
+  </header>
+
+  {% if not m %}
+  <section class="card error">No metrics found &mdash; run <code>python -m src.train</code> first.</section>
+  {% else %}
+
+  <section class="card">
+    <h2>Dataset</h2>
+    <table>
+      <tr><td>Source</td><td>{{ m.dataset.source }}</td></tr>
+      <tr><td>Articles</td><td>{{ m.dataset.n_articles }} ({{ m.dataset.n_fake }} fake / {{ m.dataset.n_real }} real)</td></tr>
+      <tr><td>Preprocessing</td><td>{{ m.preprocessing }}</td></tr>
+    </table>
+    <p class="muted small"><strong>Note:</strong> {{ m.leakage_note }}</p>
+  </section>
+
+  <section class="card">
+    <h2>Final model: {{ m.final_model.classifier }}</h2>
+    {% set f = m.final_model %}
+    <div class="stats">
+      <div class="stat"><span class="num">{{ (f.accuracy * 100) | round(2) }}%</span><span>Accuracy</span></div>
+      <div class="stat"><span class="num">{{ (f.macro_f1 * 100) | round(2) }}%</span><span>Macro F1</span></div>
+    </div>
+    <table>
+      <thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>Support</th></tr></thead>
+      <tbody>
+      {% for cls in ['REAL', 'FAKE'] %}
+        {% set r = f.report[cls] %}
+        <tr><td>{{ cls }}</td><td>{{ (r.precision * 100) | round(2) }}%</td><td>{{ (r.recall * 100) | round(2) }}%</td>
+            <td>{{ (r['f1-score'] * 100) | round(2) }}%</td><td>{{ r.support | int }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% if has_matrix %}
+    <img class="matrix" src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Confusion matrix">
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>All experiments</h2>
+    <table>
+      <thead><tr><th>Classifier</th><th>Features</th><th>Accuracy</th><th>Macro F1</th></tr></thead>
+      <tbody>
+      {% for e in m.experiments %}
+        <tr class="{{ 'highlight' if e.classifier == m.final_model.classifier and 'cleaned' in e.features }}">
+          <td>{{ e.classifier }}</td><td>{{ e.features }}</td>
+          <td>{{ (e.accuracy * 100) | round(2) }}%</td><td>{{ (e.macro_f1 * 100) | round(2) }}%</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted small">The "raw" rows keep the <code>(Reuters)</code> source marker; the "cleaned" rows remove it.
+      The gap shows how much accuracy a single leaked token can buy.</p>
+  </section>
+
+  {% endif %}
+</div>
+</body>
+</html>

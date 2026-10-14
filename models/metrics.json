@@ -1,0 +1,105 @@
+{
+  "dataset": {
+    "source": "ISOT Fake News dataset (GonzaloA/fake_news, Hugging Face)",
+    "n_articles": 24353,
+    "n_fake": 11107,
+    "n_real": 13246,
+    "test_size": 0.2,
+    "seed": 42
+  },
+  "preprocessing": "lowercase, strip URLs/HTML/agency markers (Reuters, CNN, AP...), title repeated twice + body, TF-IDF uni+bigrams (60k features)",
+  "experiments": [
+    {
+      "classifier": "MultinomialNB",
+      "features": "cleaned (no source markers)",
+      "accuracy": 0.9493,
+      "macro_f1": 0.949
+    },
+    {
+      "classifier": "ComplementNB",
+      "features": "cleaned (no source markers)",
+      "accuracy": 0.9497,
+      "macro_f1": 0.9494
+    },
+    {
+      "classifier": "LogisticRegression",
+      "features": "cleaned (no source markers)",
+      "accuracy": 0.9729,
+      "macro_f1": 0.9727
+    },
+    {
+      "classifier": "LinearSVC",
+      "features": "cleaned (no source markers)",
+      "accuracy": 0.9811,
+      "macro_f1": 0.981
+    },
+    {
+      "classifier": "MultinomialNB",
+      "features": "raw (with Reuters artifact)",
+      "accuracy": 0.9509,
+      "macro_f1": 0.9506
+    },
+    {
+      "classifier": "ComplementNB",
+      "features": "raw (with Reuters artifact)",
+      "accuracy": 0.9515,
+      "macro_f1": 0.9513
+    },
+    {
+      "classifier": "LogisticRegression",
+      "features": "raw (with Reuters artifact)",
+      "accuracy": 0.9752,
+      "macro_f1": 0.975
+    },
+    {
+      "classifier": "LinearSVC",
+      "features": "raw (with Reuters artifact)",
+      "accuracy": 0.9844,
+      "macro_f1": 0.9843
+    }
+  ],
+  "final_model": {
+    "accuracy": 0.9729,
+    "macro_f1": 0.9727,
+    "report": {
+      "REAL": {
+        "precision": 0.9737,
+        "recall": 0.9766,
+        "f1-score": 0.9751,
+        "support": 2649.0
+      },
+      "FAKE": {
+        "precision": 0.972,
+        "recall": 0.9685,
+        "f1-score": 0.9702,
+        "support": 2222.0
+      },
+      "accuracy": 0.9729,
+      "macro avg": {
+        "precision": 0.9728,
+        "recall": 0.9725,
+        "f1-score": 0.9727,
+        "support": 4871.0
+      },
+      "weighted avg": {
+        "precision": 0.9729,
+        "recall": 0.9729,
+        "f1-score": 0.9729,
+        "support": 4871.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        2587,
+        62
+      ],
+      [
+        70,
+        2152
+      ]
+    ],
+    "classifier": "LogisticRegression",
+    "trained_at": "2026-10-14T21:44:14"
+  },
+  "leakage_note": "95.8% of real articles contained a '(Reuters)' marker vs 0% of fake articles; the marker is stripped during preprocessing so the model learns writing style rather than a source token."
+}

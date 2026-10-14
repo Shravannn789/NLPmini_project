@@ -1,0 +1,126 @@
+{
+  "fake_leaning": [
+    {
+      "term": "video",
+      "weight": 9.584
+    },
+    {
+      "term": "via",
+      "weight": 7.188
+    },
+    {
+      "term": "image",
+      "weight": 4.462
+    },
+    {
+      "term": "featured",
+      "weight": 4.214
+    },
+    {
+      "term": "featured image",
+      "weight": 4.213
+    },
+    {
+      "term": "read more",
+      "weight": 4.017
+    },
+    {
+      "term": "you",
+      "weight": 3.96
+    },
+    {
+      "term": "just",
+      "weight": 3.956
+    },
+    {
+      "term": "image via",
+      "weight": 3.804
+    },
+    {
+      "term": "obama",
+      "weight": 3.7
+    },
+    {
+      "term": "watch",
+      "weight": 3.628
+    },
+    {
+      "term": "this",
+      "weight": 3.516
+    },
+    {
+      "term": "gop",
+      "weight": 3.45
+    },
+    {
+      "term": "breaking",
+      "weight": 3.446
+    },
+    {
+      "term": "president trump",
+      "weight": 3.364
+    }
+  ],
+  "real_leaning": [
+    {
+      "term": "said",
+      "weight": -8.585
+    },
+    {
+      "term": "said on",
+      "weight": -6.054
+    },
+    {
+      "term": "washington",
+      "weight": -4.645
+    },
+    {
+      "term": "trumps",
+      "weight": -4.501
+    },
+    {
+      "term": "on wednesday",
+      "weight": -4.146
+    },
+    {
+      "term": "said in",
+      "weight": -3.955
+    },
+    {
+      "term": "on",
+      "weight": -3.873
+    },
+    {
+      "term": "on tuesday",
+      "weight": -3.817
+    },
+    {
+      "term": "president donald",
+      "weight": -3.732
+    },
+    {
+      "term": "on thursday",
+      "weight": -3.682
+    },
+    {
+      "term": "its",
+      "weight": -3.437
+    },
+    {
+      "term": "on friday",
+      "weight": -3.388
+    },
+    {
+      "term": "said the",
+      "weight": -3.202
+    },
+    {
+      "term": "wednesday",
+      "weight": -3.197
+    },
+    {
+      "term": "on monday",
+      "weight": -3.157
+    }
+  ]
+}

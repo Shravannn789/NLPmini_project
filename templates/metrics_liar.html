@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIAR Claim Model - Fake News Detection</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>LIAR Claim Model Evaluation</h1>
+    <p class="tagline">Short fact-checking claims (LIAR benchmark, Wang, ACL 2017) &mdash;
+      classical bag-of-words vs TF-IDF baseline comparison</p>
+    <nav>
+      <a href="/">&larr; Back to the classifier</a>
+      <span class="muted">&nbsp;|&nbsp;</span>
+      <a href="/metrics">Article model metrics</a>
+    </nav>
+  </header>
+
+  {% if not m %}
+  <section class="card error">No LIAR metrics found &mdash; run <code>python -m src.train_liar</code> first.</section>
+  {% else %}
+
+  <section class="card">
+    <h2>Dataset</h2>
+    <table>
+      <tr><td>Source</td><td>{{ m.dataset.source }}</td></tr>
+      <tr><td>Splits</td><td>{{ m.dataset.n_train }} train / {{ m.dataset.n_test }} test
+          ({{ m.dataset.n_fake_train }} fake / {{ m.dataset.n_real_train }} real in train)</td></tr>
+      <tr><td>Label mapping</td><td>{{ m.dataset.label_mapping }}</td></tr>
+      <tr><td>Methodology</td><td>{{ m.dataset.reference }}</td></tr>
+    </table>
+  </section>
+
+  {% set f = m.final_model %}
+  <section class="card">
+    <h2>Final model: {{ f.classifier }}</h2>
+    <div class="stats">
+      <div class="stat"><span class="num">{{ (f.accuracy * 100) | round(2) }}%</span><span>Accuracy</span></div>
+      <div class="stat"><span class="num">{{ (f.macro_f1 * 100) | round(2) }}%</span><span>Macro F1</span></div>
+      <div class="stat"><span class="num">{{ (f.average_precision * 100) | round(2) }}%</span><span>Avg Precision (PR)</span></div>
+    </div>
+    <table>
+      <thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>Support</th></tr></thead>
+      <tbody>
+      {% for cls in ['REAL', 'FAKE'] %}
+        {% set r = f.report[cls] %}
+        <tr><td>{{ cls }}</td><td>{{ (r.precision * 100) | round(2) }}%</td><td>{{ (r.recall * 100) | round(2) }}%</td>
+            <td>{{ (r['f1-score'] * 100) | round(2) }}%</td><td>{{ r.support | int }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <img class="matrix" src="{{ url_for('static', filename='confusion_matrix_liar.png') }}" alt="LIAR confusion matrix">
+    <p class="muted small">{{ m.reference_note }}</p>
+  </section>
+
+  <section class="card">
+    <h2>Learning &amp; precision-recall curves</h2>
+    <div class="curve-grid">
+      <figure>
+        <img src="{{ url_for('static', filename='learning_curve_liar.png') }}" alt="Learning curve">
+        <figcaption class="muted small">Training vs cross-validation macro F1 as data grows.</figcaption>
+      </figure>
+      <figure>
+        <img src="{{ url_for('static', filename='pr_curve_liar.png') }}" alt="Precision-recall curve">
+        <figcaption class="muted small">Precision-recall trade-off for the FAKE class.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>All experiments (5 classifiers &times; 2 feature sets)</h2>
+    <table>
+      <thead><tr><th>Classifier</th><th>Features</th><th>Accuracy</th><th>Macro F1</th></tr></thead>
+      <tbody>
+      {% for e in m.experiments %}
+        <tr class="{{ 'highlight' if e.classifier == f.classifier }}">
+          <td>{{ e.classifier }}</td><td>{{ e.features }}</td>
+          <td>{{ (e.accuracy * 100) | round(2) }}%</td><td>{{ (e.macro_f1 * 100) | round(2) }}%</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>GridSearchCV (top-2 candidates)</h2>
+    <table>
+      <thead><tr><th>Classifier</th><th>Best params</th><th>Best CV macro F1</th><th>Test macro F1</th></tr></thead>
+      <tbody>
+      {% for g in m.grid_search %}
+        <tr><td>{{ g.classifier }}</td><td><code>{{ g.best_params }}</code></td>
+            <td>{{ (g.best_cv_macro_f1 * 100) | round(2) }}%</td>
+            <td>{{ (g.test_macro_f1 * 100) | round(2) }}%</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted small">Grid search tunes the n-gram range and use_idf over the
+      TF-IDF vectorizer, scored by 5-fold macro F1, then the best estimator is evaluated on the test split.</p>
+  </section>
+
+  {% endif %}
+</div>
+</body>
+</html>

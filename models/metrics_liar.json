@@ -1,0 +1,139 @@
+{
+  "dataset": {
+    "source": "LIAR (Wang, ACL 2017) - liar_dataset.zip from the author",
+    "n_train": 10269,
+    "n_test": 1283,
+    "n_fake_train": 4497,
+    "n_real_train": 5772,
+    "label_mapping": "true/mostly-true/half-true -> REAL; barely-true/false/pants-fire -> FAKE",
+    "reference": "classical bag-of-words vs TF-IDF n-gram baseline comparison"
+  },
+  "experiments": [
+    {
+      "classifier": "MultinomialNB",
+      "features": "bag-of-words",
+      "accuracy": 0.6111,
+      "macro_f1": 0.5949
+    },
+    {
+      "classifier": "LogisticRegression",
+      "features": "bag-of-words",
+      "accuracy": 0.6041,
+      "macro_f1": 0.5928
+    },
+    {
+      "classifier": "LinearSVC",
+      "features": "bag-of-words",
+      "accuracy": 0.5861,
+      "macro_f1": 0.5768
+    },
+    {
+      "classifier": "SGDClassifier",
+      "features": "bag-of-words",
+      "accuracy": 0.6243,
+      "macro_f1": 0.611
+    },
+    {
+      "classifier": "RandomForest",
+      "features": "bag-of-words",
+      "accuracy": 0.6103,
+      "macro_f1": 0.5751
+    },
+    {
+      "classifier": "MultinomialNB",
+      "features": "tfidf n-grams (1,4)",
+      "accuracy": 0.6072,
+      "macro_f1": 0.5014
+    },
+    {
+      "classifier": "LogisticRegression",
+      "features": "tfidf n-grams (1,4)",
+      "accuracy": 0.6189,
+      "macro_f1": 0.5796
+    },
+    {
+      "classifier": "LinearSVC",
+      "features": "tfidf n-grams (1,4)",
+      "accuracy": 0.6189,
+      "macro_f1": 0.5998
+    },
+    {
+      "classifier": "SGDClassifier",
+      "features": "tfidf n-grams (1,4)",
+      "accuracy": 0.5666,
+      "macro_f1": 0.3617
+    },
+    {
+      "classifier": "RandomForest",
+      "features": "tfidf n-grams (1,4)",
+      "accuracy": 0.6017,
+      "macro_f1": 0.5809
+    }
+  ],
+  "grid_search": [
+    {
+      "classifier": "SGDClassifier",
+      "best_params": {
+        "clf__alpha": "0.0001",
+        "vec__ngram_range": "(1, 2)",
+        "vec__use_idf": "False"
+      },
+      "best_cv_macro_f1": 0.5915,
+      "test_macro_f1": 0.5876
+    },
+    {
+      "classifier": "LinearSVC",
+      "best_params": {
+        "vec__ngram_range": "(1, 4)",
+        "vec__use_idf": "True"
+      },
+      "best_cv_macro_f1": 0.5941,
+      "test_macro_f1": 0.5998
+    }
+  ],
+  "final_model": {
+    "accuracy": 0.6189,
+    "macro_f1": 0.5998,
+    "report": {
+      "REAL": {
+        "precision": 0.6423,
+        "recall": 0.7387,
+        "f1-score": 0.6871,
+        "support": 727.0
+      },
+      "FAKE": {
+        "precision": 0.5749,
+        "recall": 0.4622,
+        "f1-score": 0.5125,
+        "support": 556.0
+      },
+      "accuracy": 0.6189,
+      "macro avg": {
+        "precision": 0.6086,
+        "recall": 0.6004,
+        "f1-score": 0.5998,
+        "support": 1283.0
+      },
+      "weighted avg": {
+        "precision": 0.6131,
+        "recall": 0.6189,
+        "f1-score": 0.6114,
+        "support": 1283.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        537,
+        190
+      ],
+      [
+        299,
+        257
+      ]
+    ],
+    "classifier": "LinearSVC",
+    "average_precision": 0.6026,
+    "trained_at": "2026-10-14T23:38:37"
+  },
+  "reference_note": "TF-IDF n-gram baselines on LIAR typically reach ~0.70 binary F1 (5-fold CV). Short fact-check claims are far harder than full articles: there is no article style to learn, only the wording of a single claim."
+}

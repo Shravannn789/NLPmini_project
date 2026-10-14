@@ -1,0 +1,406 @@
+{
+  "fake_leaning": [
+    {
+      "term": "obamacare",
+      "weight": 1.5673
+    },
+    {
+      "term": "obama",
+      "weight": 1.4171
+    },
+    {
+      "term": "wisconsin",
+      "weight": 1.401
+    },
+    {
+      "term": "rep",
+      "weight": 1.2956
+    },
+    {
+      "term": "government",
+      "weight": 1.1606
+    },
+    {
+      "term": "away",
+      "weight": 1.0708
+    },
+    {
+      "term": "illegals",
+      "weight": 1.0513
+    },
+    {
+      "term": "says",
+      "weight": 1.0248
+    },
+    {
+      "term": "illegal",
+      "weight": 0.9806
+    },
+    {
+      "term": "scott walker",
+      "weight": 0.972
+    },
+    {
+      "term": "plan",
+      "weight": 0.9477
+    },
+    {
+      "term": "white",
+      "weight": 0.9407
+    },
+    {
+      "term": "group",
+      "weight": 0.9407
+    },
+    {
+      "term": "nuclear weapons",
+      "weight": 0.9372
+    },
+    {
+      "term": "gotten",
+      "weight": 0.9226
+    },
+    {
+      "term": "floridas",
+      "weight": 0.9203
+    },
+    {
+      "term": "released",
+      "weight": 0.9188
+    },
+    {
+      "term": "face",
+      "weight": 0.9182
+    },
+    {
+      "term": "walker",
+      "weight": 0.9071
+    },
+    {
+      "term": "muslim",
+      "weight": 0.904
+    },
+    {
+      "term": "seven years",
+      "weight": 0.9029
+    },
+    {
+      "term": "china",
+      "weight": 0.898
+    },
+    {
+      "term": "selling",
+      "weight": 0.8937
+    },
+    {
+      "term": "stop",
+      "weight": 0.89
+    },
+    {
+      "term": "seat",
+      "weight": 0.8655
+    },
+    {
+      "term": "cabinet",
+      "weight": 0.8634
+    },
+    {
+      "term": "benghazi",
+      "weight": 0.859
+    },
+    {
+      "term": "fight",
+      "weight": 0.858
+    },
+    {
+      "term": "team",
+      "weight": 0.8441
+    },
+    {
+      "term": "president",
+      "weight": 0.8408
+    },
+    {
+      "term": "real",
+      "weight": 0.8395
+    },
+    {
+      "term": "aid",
+      "weight": 0.8355
+    },
+    {
+      "term": "christians",
+      "weight": 0.8354
+    },
+    {
+      "term": "tom",
+      "weight": 0.8258
+    },
+    {
+      "term": "know",
+      "weight": 0.8229
+    },
+    {
+      "term": "care",
+      "weight": 0.8194
+    },
+    {
+      "term": "virginias",
+      "weight": 0.8158
+    },
+    {
+      "term": "deciding",
+      "weight": 0.8079
+    },
+    {
+      "term": "500 billion",
+      "weight": 0.8045
+    },
+    {
+      "term": "dont know",
+      "weight": 0.7987
+    },
+    {
+      "term": "taxed",
+      "weight": 0.7947
+    },
+    {
+      "term": "end medicare",
+      "weight": 0.7881
+    },
+    {
+      "term": "war iraq",
+      "weight": 0.7875
+    },
+    {
+      "term": "raise taxes",
+      "weight": 0.7851
+    },
+    {
+      "term": "free",
+      "weight": 0.7848
+    },
+    {
+      "term": "said drilling",
+      "weight": 0.7808
+    },
+    {
+      "term": "lanes",
+      "weight": 0.78
+    },
+    {
+      "term": "price",
+      "weight": 0.7793
+    },
+    {
+      "term": "scheme",
+      "weight": 0.7702
+    },
+    {
+      "term": "pass",
+      "weight": 0.7696
+    }
+  ],
+  "real_leaning": [
+    {
+      "term": "percent",
+      "weight": -2.0266
+    },
+    {
+      "term": "countries",
+      "weight": -1.8312
+    },
+    {
+      "term": "georgia",
+      "weight": -1.6527
+    },
+    {
+      "term": "day",
+      "weight": -1.6198
+    },
+    {
+      "term": "times",
+      "weight": -1.4361
+    },
+    {
+      "term": "average",
+      "weight": -1.4233
+    },
+    {
+      "term": "million",
+      "weight": -1.3952
+    },
+    {
+      "term": "months",
+      "weight": -1.2905
+    },
+    {
+      "term": "debt",
+      "weight": -1.2824
+    },
+    {
+      "term": "half",
+      "weight": -1.1421
+    },
+    {
+      "term": "american",
+      "weight": -1.1396
+    },
+    {
+      "term": "000",
+      "weight": -1.1167
+    },
+    {
+      "term": "cut",
+      "weight": -1.1139
+    },
+    {
+      "term": "terms",
+      "weight": -1.1115
+    },
+    {
+      "term": "cities",
+      "weight": -1.0502
+    },
+    {
+      "term": "decades",
+      "weight": -1.0483
+    },
+    {
+      "term": "lower",
+      "weight": -1.0451
+    },
+    {
+      "term": "country",
+      "weight": -1.0423
+    },
+    {
+      "term": "60",
+      "weight": -1.0406
+    },
+    {
+      "term": "percent time",
+      "weight": -1.0221
+    },
+    {
+      "term": "worth",
+      "weight": -1.0186
+    },
+    {
+      "term": "highest",
+      "weight": -1.0174
+    },
+    {
+      "term": "members",
+      "weight": -1.0081
+    },
+    {
+      "term": "shutdown",
+      "weight": -1.0052
+    },
+    {
+      "term": "says scott",
+      "weight": -1.0036
+    },
+    {
+      "term": "lobbyists",
+      "weight": -0.9776
+    },
+    {
+      "term": "corporations",
+      "weight": -0.9525
+    },
+    {
+      "term": "youve",
+      "weight": -0.9522
+    },
+    {
+      "term": "ohio",
+      "weight": -0.9393
+    },
+    {
+      "term": "elected",
+      "weight": -0.9343
+    },
+    {
+      "term": "georgias",
+      "weight": -0.9217
+    },
+    {
+      "term": "dollar",
+      "weight": -0.9076
+    },
+    {
+      "term": "expanded",
+      "weight": -0.8899
+    },
+    {
+      "term": "14",
+      "weight": -0.8659
+    },
+    {
+      "term": "workers",
+      "weight": -0.8602
+    },
+    {
+      "term": "committee",
+      "weight": -0.8575
+    },
+    {
+      "term": "opposed",
+      "weight": -0.8558
+    },
+    {
+      "term": "share",
+      "weight": -0.8521
+    },
+    {
+      "term": "poverty",
+      "weight": -0.8467
+    },
+    {
+      "term": "spending",
+      "weight": -0.8459
+    },
+    {
+      "term": "weve",
+      "weight": -0.8387
+    },
+    {
+      "term": "statewide",
+      "weight": -0.8357
+    },
+    {
+      "term": "accidents",
+      "weight": -0.8286
+    },
+    {
+      "term": "24",
+      "weight": -0.8237
+    },
+    {
+      "term": "called",
+      "weight": -0.8224
+    },
+    {
+      "term": "does",
+      "weight": -0.8204
+    },
+    {
+      "term": "torture",
+      "weight": -0.8173
+    },
+    {
+      "term": "college",
+      "weight": -0.8161
+    },
+    {
+      "term": "abortion rights",
+      "weight": -0.8149
+    },
+    {
+      "term": "nearly",
+      "weight": -0.8117
+    }
+  ]
+}
